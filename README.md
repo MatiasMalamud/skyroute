@@ -70,6 +70,20 @@ The backend is organized into clear layers:
 - Booking flow with passenger details and conditional document fields
 - Booking reference generation
 
+## Future Improvements
+
+- **Special assistance**: wheelchair, reduced mobility passengers
+- **Minor passengers**: unaccompanied minors with special validation
+- **Pet policy**: cabin vs cargo hold based on animal type and weight
+- **Meal preferences**: vegetarian, vegan, gluten-free, diabetic
+- **Loyalty programs**: frequent flyer miles and tier discounts
+- **Seat selection**: window, aisle, extra legroom
+- **Baggage options**: carry-on and checked baggage fees per provider
+- **Real provider APIs**: replace mocks with actual GlobalAir/BudgetWings integration
+- **Unit testing**: xUnit for backend pricing logic, Jest for Angular components
+- **Database persistence**: Entity Framework Core with PostgreSQL
+- **Authentication**: JWT-based user accounts and booking history
+
 ## Known Limitations & Future Improvements
 
 - **No persistence**: Bookings and flights are stored in memory and lost on restart. A database should be added.
