@@ -68,29 +68,23 @@ The backend is organized into clear layers:
 - Booking flow with passenger details and conditional document fields
 - Booking reference generation
 
-## Future Improvements
-
-- **Special assistance**: wheelchair, reduced mobility passengers
-- **Minor passengers**: unaccompanied minors with special validation
-- **Pet policy**: cabin vs cargo hold based on animal type and weight
-- **Meal preferences**: vegetarian, vegan, gluten-free, diabetic
-- **Loyalty programs**: frequent flyer miles and tier discounts
-- **Seat selection**: window, aisle, extra legroom
-- **Baggage options**: carry-on and checked baggage fees per provider
-- **Real provider APIs**: replace mocks with actual GlobalAir/BudgetWings integration
-- **Unit testing**: xUnit for backend pricing logic, Jest for Angular components
-- **Database persistence**: Entity Framework Core with PostgreSQL
-- **Authentication**: JWT-based user accounts and booking history
-
-## Known Limitations & Future Improvements
-
 > [!WARNING]
 > Flights are generated randomly on each search — results will differ between searches.
 
-- **No persistence**: Bookings and flights are stored in memory and lost on restart. A database should be added.
-- **No authentication**: Users cannot manage their bookings. JWT or OAuth2 could be added.
-- **No payment integration**: A real system would integrate with Stripe, PayPal, etc.
-- **No caching**: Flight search results could be cached with Redis to improve performance.
+## Known Limitations & Future Improvements
+
+- **No persistence**: Bookings and flights are stored in memory and lost on restart. Entity Framework Core with PostgreSQL would be added in production.
+- **No authentication**: Users cannot manage their bookings. JWT or OAuth2 could be integrated.
+- **No payment integration**: A real system would integrate with Stripe or PayPal.
+- **No email service**: Booking confirmations are mocked. SendGrid or AWS SES could be integrated.
 - **No real-time updates**: SignalR or WebSockets could notify users of price changes.
-- **No pagination**: Results are returned in full; pagination should be added for scalability.
-- **No email service**: Booking confirmations are mocked; SendGrid or AWS SES could be integrated.
+- **No pagination**: Results are returned in full. Pagination should be added for scalability.
+- **Special assistance**: wheelchair and reduced mobility passengers.
+- **Minor passengers**: unaccompanied minors with special validation.
+- **Pet policy**: cabin vs cargo hold based on animal type and weight.
+- **Meal preferences**: vegetarian, vegan, gluten-free, diabetic options.
+- **Loyalty programs**: frequent flyer miles and tier discounts.
+- **Seat selection**: window, aisle, extra legroom.
+- **Baggage options**: carry-on and checked baggage fees per provider.
+- **Real provider APIs**: replace mocks with actual airline integrations.
+- **Unit testing**: xUnit for backend pricing logic, Jest for Angular components.
