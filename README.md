@@ -11,8 +11,6 @@ A complete Flight Search & Booking application built with Angular 18 (standalone
 > [!NOTE]
 > AI coding tools were used during development, as permitted by the challenge guidelines.
 
-## How to Run
-
 ### Prerequisites
 
 - .NET 10 SDK
@@ -25,8 +23,8 @@ A complete Flight Search & Booking application built with Angular 18 (standalone
 cd backend/SkyRoute.Api
 dotnet run
 ```
-
-The API will be available at `http://localhost:5000`.
+> [!TIP]
+> Use Postman or any REST client to test the API directly at http://localhost:5000
 
 ### Frontend (Angular 18)
 
@@ -85,6 +83,9 @@ The backend is organized into clear layers:
 - **Authentication**: JWT-based user accounts and booking history
 
 ## Known Limitations & Future Improvements
+
+> [!WARNING]
+> Flights are generated randomly on each search — results will differ between searches.
 
 - **No persistence**: Bookings and flights are stored in memory and lost on restart. A database should be added.
 - **No authentication**: Users cannot manage their bookings. JWT or OAuth2 could be added.
