@@ -1,0 +1,115 @@
+<div class="search-hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Where will you fly next?</h1>
+    <p class="hero-subtitle">Search flights across GlobalAir and BudgetWings — compare prices, book in seconds.</p>
+  </div>
+</div>
+
+<div class="search-container">
+  <div class="search-card-wrapper">
+    <!-- Loading airports -->
+    <div *ngIf="loadingAirports" class="loading-state">
+      <mat-spinner diameter="36"></mat-spinner>
+      <p>Loading destinations...</p>
+    </div>
+
+    <!-- Error loading airports -->
+    <div *ngIf="error && airports.length === 0" class="airport-error">
+      <span class="error-icon">⚠️</span>
+      <h3>Unable to load airports</h3>
+      <p>{{ error }}</p>
+      <button mat-stroked-button color="primary" (click)="loadAirports()">Try Again</button>
+    </div>
+
+    <!-- Search Form -->
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" *ngIf="!loadingAirports && airports.length > 0" class="search-form">
+      <div class="form-row route-row">
+        <div class="field-group">
+          <label class="field-label">From</label>
+          <div class="select-wrap">
+            <select formControlName="origin" class="sk-select">
+              <option value="" disabled>Select origin</option>
+              <option *ngFor="let airport of airports" [value]="airport.code">
+                {{ airport.city }} ({{ airport.code }})
+              </option>
+            </select>
+            <span class="select-arrow">▼</span>
+          </div>
+          <div class="field-error" *ngIf="searchForm.get('origin')?.touched && searchForm.get('origin')?.hasError('required')">
+            Select an origin airport
+          </div>
+        </div>
+
+        <div class="route-divider">
+          <div class="route-line"></div>
+          <span class="route-arrow">→</span>
+          <div class="route-line"></div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">To</label>
+          <div class="select-wrap">
+            <select formControlName="destination" class="sk-select">
+              <option value="" disabled>Select destination</option>
+              <option *ngFor="let airport of airports" [value]="airport.code">
+                {{ airport.city }} ({{ airport.code }})
+              </option>
+            </select>
+            <span class="select-arrow">▼</span>
+          </div>
+          <div class="field-error" *ngIf="searchForm.get('destination')?.touched && searchForm.get('destination')?.hasError('required')">
+            Select a destination
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="searchForm.hasError('sameAirport')" class="validation-banner">
+        <span class="icon">ℹ️</span>
+        <span>Origin and destination cannot be the same</span>
+      </div>
+
+      <div class="form-row details-row">
+        <div class="field-group">
+          <label class="field-label">Departure</label>
+          <mat-form-field appearance="outline" class="sk-field">
+            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Pick a date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="searchForm.get('date')?.hasError('required')">Pick a date</mat-error>
+            <mat-error *ngIf="searchForm.get('date')?.hasError('pastDate')">Date must be today or later</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Passengers</label>
+          <div class="select-wrap">
+            <select formControlName="passengers" class="sk-select">
+              <option *ngFor="let num of passengerOptions" [value]="num">{{ num }} {{ num === 1 ? 'Passenger' : 'Passengers' }}</option>
+            </select>
+            <span class="select-arrow">▼</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Cabin</label>
+          <div class="select-wrap">
+            <select formControlName="cabinClass" class="sk-select">
+              <option *ngFor="let cls of cabinClasses" [value]="cls">{{ cls }}</option>
+            </select>
+            <span class="select-arrow">▼</span>
+          </div>
+        </div>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit" class="search-btn" [disabled]="loading">
+        <span *ngIf="!loading">
+          <span class="icon">🔍</span>
+          Search Flights
+        </span>
+        <mat-spinner *ngIf="loading" diameter="22"></mat-spinner>
+      </button>
+
+      <div *ngIf="error && airports.length > 0" class="search-error">{{ error }}</div>
+    </form>
+  </div>
+</div>

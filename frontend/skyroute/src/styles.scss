@@ -1,0 +1,157 @@
+/* Global SkyRoute Theme */
+
+:root {
+  --sk-primary: #0a2540;
+  --sk-primary-light: #1a3a5c;
+  --sk-accent: #e76f51;
+  --sk-accent-hover: #d45a3c;
+  --sk-bg: #f4f6f8;
+  --sk-surface: #ffffff;
+  --sk-text: #1a1a2e;
+  --sk-text-secondary: #5a6573;
+  --sk-text-muted: #8a94a0;
+  --sk-border: #e2e6eb;
+  --sk-success: #2a9d8f;
+  --sk-error: #e63946;
+  --sk-globalair: #1d6fa5;
+  --sk-globalair-bg: #e8f4fc;
+  --sk-budgetwings: #2a9d8f;
+  --sk-budgetwings-bg: #e6f5f2;
+  --sk-radius: 14px;
+  --sk-radius-sm: 8px;
+  --sk-shadow-sm: 0 1px 3px rgba(10, 37, 64, 0.06);
+  --sk-shadow: 0 4px 24px rgba(10, 37, 64, 0.08);
+  --sk-shadow-lg: 0 12px 40px rgba(10, 37, 64, 0.12);
+  --sk-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family:
+    'DM Sans',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: var(--sk-bg);
+  color: var(--sk-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+/* Override Angular Material defaults */
+.mat-mdc-raised-button.mat-primary {
+  background-color: var(--sk-accent) !important;
+  color: white !important;
+  border-radius: 10px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em;
+  transition: var(--sk-transition);
+}
+
+.mat-mdc-raised-button.mat-primary:hover {
+  background-color: var(--sk-accent-hover) !important;
+  box-shadow: 0 4px 12px rgba(231, 111, 81, 0.3);
+}
+
+.mat-mdc-outlined-button {
+  border-radius: 10px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+.mat-mdc-form-field {
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+.mat-mdc-card {
+  border-radius: var(--sk-radius) !important;
+  box-shadow: var(--sk-shadow) !important;
+  border: 1px solid var(--sk-border);
+}
+
+.mat-mdc-card-title {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 700 !important;
+  color: var(--sk-primary) !important;
+}
+
+.mat-mdc-select-value,
+.mat-mdc-input-element {
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+  stroke: var(--sk-accent) !important;
+}
+.cdk-overlay-pane .mat-mdc-select-panel {
+  max-height: 220px !important;
+}
+
+/* Global form control padding */
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='url'],
+input[type='date'],
+textarea {
+  padding-left: 14px;
+}
+
+.mat-mdc-input-element {
+  padding-left: 14px !important;
+}
+
+/* Native select base styling — applied to ALL select elements */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a94a0' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  border: 1.5px solid var(--sk-border);
+  border-radius: var(--sk-radius-sm);
+  padding: 12px 40px 12px 16px;
+  height: 48px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--sk-text);
+  cursor: pointer;
+  transition: var(--sk-transition);
+  line-height: 1.4;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--sk-accent);
+  box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.12);
+}
+
+select:hover {
+  border-color: var(--sk-text-muted);
+}
+
+select:disabled {
+  background-color: var(--sk-bg);
+  color: var(--sk-text-muted);
+  cursor: not-allowed;
+}
+.mat-datepicker-content {
+  background: white !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  border-radius: 12px !important;
+}

@@ -1,0 +1,478 @@
+.booking-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+.booking-layout {
+  display: flex;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+  align-items: start;
+  justify-content: center;
+}
+
+.booking-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 88px;
+}
+
+.sidebar-card {
+  background: var(--sk-surface);
+  border-radius: var(--sk-radius);
+  box-shadow: var(--sk-shadow-sm);
+  border: 1px solid var(--sk-border);
+  padding: 20px;
+}
+
+.sidebar-section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--sk-primary);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+.flight-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.route-point {
+  text-align: center;
+  flex: 1;
+}
+
+.route-time {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--sk-primary);
+  line-height: 1.2;
+}
+
+.route-code {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--sk-text-secondary);
+  margin-top: 2px;
+}
+
+.route-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 60px;
+}
+
+.route-track .icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--sk-accent);
+  transform: rotate(90deg);
+}
+
+.route-duration {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--sk-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.flight-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.meta-label {
+  color: var(--sk-text-muted);
+  font-weight: 500;
+}
+
+.meta-value {
+  color: var(--sk-text);
+  font-weight: 600;
+}
+
+.provider-badge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.provider-badge.globalair {
+  background: var(--sk-globalair-bg);
+  color: var(--sk-globalair);
+}
+
+.provider-badge.budgetwings {
+  background: var(--sk-budgetwings-bg);
+  color: var(--sk-budgetwings);
+}
+
+.price-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9375rem;
+  color: var(--sk-text-secondary);
+}
+
+.price-row.total {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--sk-primary);
+}
+
+.price-divider {
+  height: 1px;
+  background: var(--sk-border);
+  margin: 4px 0;
+}
+
+.booking-main {
+  min-width: 0;
+}
+
+.booking-form {
+  background: var(--sk-surface);
+  border-radius: var(--sk-radius);
+  box-shadow: var(--sk-shadow-sm);
+  border: 1px solid var(--sk-border);
+  padding: 28px;
+}
+
+.form-header {
+  margin-bottom: 24px;
+}
+
+.form-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--sk-primary);
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.form-subtitle {
+  color: var(--sk-text-muted);
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+.passenger-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.passenger-card {
+  border: 1.5px solid var(--sk-border);
+  border-radius: var(--sk-radius-sm);
+  padding: 20px;
+  background: var(--sk-bg);
+  transition: var(--sk-transition);
+}
+
+.passenger-card:hover {
+  border-color: var(--sk-accent);
+}
+
+.passenger-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.passenger-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--sk-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.passenger-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--sk-text);
+}
+
+.passenger-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.sk-field {
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.sk-field ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  height: auto;
+  min-height: 20px;
+}
+
+.sk-field ::ng-deep .mat-mdc-form-field-error {
+  color: var(--sk-error);
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.4;
+  padding-top: 4px;
+  display: block;
+}
+
+.sk-field ::ng-deep .mdc-notched-outline__leading,
+.sk-field ::ng-deep .mdc-notched-outline__notch,
+.sk-field ::ng-deep .mdc-notched-outline__trailing {
+  border-color: var(--sk-border) !important;
+  border-width: 1.5px !important;
+}
+
+.sk-field ::ng-deep .mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__leading,
+.sk-field ::ng-deep .mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__notch,
+.sk-field ::ng-deep .mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__trailing {
+  border-color: var(--sk-error) !important;
+}
+
+.form-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fef2f2;
+  color: var(--sk-error);
+  padding: 12px 16px;
+  border-radius: var(--sk-radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: 16px;
+}
+
+.form-error-banner .icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.confirm-btn {
+  margin-top: 24px;
+  width: 100%;
+  height: 52px;
+  font-size: 1rem;
+  border-radius: 10px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.confirm-btn:disabled {
+  opacity: 0.6;
+}
+
+.confirmation-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  margin: 40px auto;
+  max-width: 480px;
+}
+
+.confirmation-card {
+  background: var(--sk-surface);
+  border-radius: var(--sk-radius);
+  box-shadow: var(--sk-shadow-lg);
+  border: 1px solid var(--sk-border);
+  padding: 48px 40px;
+  text-align: center;
+  width: 100%;
+  animation: confirmEnter 0.5s ease-out both;
+}
+
+@keyframes confirmEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.confirmation-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #e6f5f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.confirmation-icon-wrap .icon {
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  color: var(--sk-success);
+}
+
+.confirmation-icon-wrap.warning {
+  background: #fff3e0;
+}
+
+.confirmation-icon-wrap.warning .icon {
+  color: #f57c00;
+}
+
+.confirmation-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--sk-primary);
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.confirmation-subtitle {
+  color: var(--sk-text-muted);
+  font-size: 0.9375rem;
+  margin: 0 0 28px;
+}
+
+.reference-box {
+  background: var(--sk-bg);
+  border-radius: var(--sk-radius-sm);
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1.5px dashed var(--sk-border);
+}
+
+.reference-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sk-text-muted);
+  margin-bottom: 8px;
+}
+
+.reference-code {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--sk-accent);
+  letter-spacing: 6px;
+  line-height: 1;
+}
+
+.confirmation-details {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 28px;
+}
+
+.conf-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.conf-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--sk-text-muted);
+}
+
+.conf-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sk-primary);
+}
+
+.conf-value.accent {
+  color: var(--sk-accent);
+}
+
+.home-btn {
+  height: 48px;
+  border-radius: 10px !important;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-sidebar {
+    position: static;
+    order: 2;
+  }
+
+  .booking-main {
+    order: 1;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .confirmation-card {
+    margin: 0 auto;
+    max-width: 480px;
+    text-align: center;
+  }
+
+  .reference-code {
+    font-size: 1.75rem;
+    letter-spacing: 4px;
+  }
+}

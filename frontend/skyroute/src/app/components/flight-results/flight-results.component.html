@@ -1,0 +1,114 @@
+<div class="results-page">
+  <div class="results-header-bar">
+    <div class="route-badge">
+      <span class="route-city">{{ searchCriteria?.origin }}</span>
+      <span class="route-arrow-icon">→</span>
+      <span class="route-city">{{ searchCriteria?.destination }}</span>
+    </div>
+    <div class="trip-meta">
+      <span class="meta-pill">{{ searchCriteria?.date | date:'EEE, MMM d' }}</span>
+      <span class="meta-pill">{{ searchCriteria?.passengers }} {{ searchCriteria?.passengers === 1 ? 'passenger' : 'passengers' }}</span>
+      <span class="meta-pill">{{ searchCriteria?.cabinClass }}</span>
+    </div>
+    <button mat-stroked-button class="edit-search-btn" (click)="goBack()">
+      <span class="icon">✏️</span>
+      Edit Search
+    </button>
+  </div>
+
+  <div class="results-layout">
+    <aside class="results-sidebar">
+      <div class="sidebar-card">
+        <h3 class="sidebar-title">Sort By</h3>
+        <div class="sort-list">
+          <button
+            *ngFor="let opt of sortOptions"
+            class="sort-btn"
+            [class.active]="sortBy === opt.value"
+            (click)="sortBy = opt.value; onSortChange()">
+            <span>{{ opt.label }}</span>
+            <span class="icon" *ngIf="sortBy === opt.value">✓</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="sidebar-card provider-filter">
+        <h3 class="sidebar-title">Providers</h3>
+        <div class="provider-list">
+          <div class="provider-tag globalair">
+            <span class="provider-dot"></span>
+            <span>GlobalAir</span>
+            <span class="provider-hint">Premium</span>
+          </div>
+          <div class="provider-tag budgetwings">
+            <span class="provider-dot"></span>
+            <span>BudgetWings</span>
+            <span class="provider-hint">Value</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="results-main">
+      <div *ngIf="sortedFlights.length === 0" class="empty-state">
+        <div class="empty-icon-wrap">
+          <span class="icon">✈️</span>
+        </div>
+        <h3>No flights found</h3>
+        <p>We couldn't find any flights for this route and date. Try adjusting your search.</p>
+        <button mat-stroked-button color="primary" (click)="goBack()">Modify Search</button>
+      </div>
+
+      <div class="flight-list" *ngIf="sortedFlights.length > 0">
+        <div
+          *ngFor="let flight of sortedFlights; let i = index"
+          class="flight-card"
+          (click)="selectFlight(flight)"
+          [style.animation-delay]="i * 60 + 'ms'">
+
+          <div class="flight-card-inner">
+            <div class="flight-top">
+              <div class="provider-chip" [class.globalair]="flight.provider === 'GlobalAir'" [class.budgetwings]="flight.provider === 'BudgetWings'">
+                <span class="provider-chip-dot"></span>
+                {{ flight.provider }}
+              </div>
+              <span class="flight-number">{{ flight.flightNumber }}</span>
+            </div>
+
+            <div class="flight-timeline">
+              <div class="time-col origin-col">
+                <div class="time-big">{{ formatTime(flight.departureTime) }}</div>
+                <div class="time-code">{{ flight.origin }}</div>
+                <div class="time-date">{{ formatDate(flight.departureTime) }}</div>
+              </div>
+
+              <div class="timeline-track">
+                <div class="track-line"></div>
+                <span class="track-plane">✈️</span>
+                <div class="track-duration">{{ formatDuration(flight.durationMinutes) }}</div>
+                <div class="track-type">{{ flight.isInternational ? 'International' : 'Domestic' }}</div>
+              </div>
+
+              <div class="time-col destination-col">
+                <div class="time-big">{{ formatTime(flight.arrivalTime) }}</div>
+                <div class="time-code">{{ flight.destination }}</div>
+                <div class="time-date">{{ formatDate(flight.arrivalTime) }}</div>
+              </div>
+
+              <div class="price-col">
+                <div class="price-total">USD {{ flight.totalPrice | number: '1.2-2' }}</div>
+                <div class="price-per">USD {{ flight.pricePerPassenger | number: '1.2-2' }} / person</div>
+                <div class="price-cabin">{{ flight.cabinClass }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flight-card-hover">
+            <span>Click to select this flight</span>
+            <span class="icon">→</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,250 @@
+<div class="booking-page">
+  <div class="booking-layout">
+    <!-- Left: Flight Summary + Price Breakdown -->
+    <aside class="booking-sidebar" *ngIf="flight && !bookingComplete">
+      <div class="sidebar-card flight-card">
+        <div class="sidebar-section-title">Selected Flight</div>
+
+        <div class="flight-route">
+          <div class="route-point">
+            <div class="route-time">{{ flight.departureTime | date: 'shortTime' }}</div>
+            <div class="route-code">{{ flight.origin }}</div>
+          </div>
+          <div class="route-track">
+            <span class="icon">✈️</span>
+            <div class="route-duration">{{ flight.durationMinutes }} min</div>
+          </div>
+          <div class="route-point">
+            <div class="route-time">{{ flight.arrivalTime | date: 'shortTime' }}</div>
+            <div class="route-code">{{ flight.destination }}</div>
+          </div>
+        </div>
+
+        <div class="flight-meta">
+          <div class="meta-item">
+            <span class="meta-label">Flight</span>
+            <span class="meta-value">{{ flight.flightNumber }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Provider</span>
+            <span
+              class="meta-value provider-badge"
+              [class.globalair]="flight.provider === 'GlobalAir'"
+              [class.budgetwings]="flight.provider === 'BudgetWings'"
+              >{{ flight.provider }}</span
+            >
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Cabin</span>
+            <span class="meta-value">{{ flight.cabinClass }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Type</span>
+            <span class="meta-value">{{
+              flight.isInternational ? 'International' : 'Domestic'
+            }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card price-card">
+        <div class="sidebar-section-title">Price Breakdown</div>
+        <div class="price-rows">
+          <div class="price-row">
+            <span>Price per passenger</span>
+            <span>USD {{ flight.pricePerPassenger | number: '1.2-2' }}</span>
+          </div>
+          <div class="price-row">
+            <span>Passengers</span>
+            <span>x {{ searchCriteria?.passengers }}</span>
+          </div>
+          <div class="price-divider"></div>
+          <div class="price-row total">
+            <span>Total</span>
+            <span>USD {{ flight.totalPrice | number: '1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main: Form or Confirmation -->
+    <main class="booking-main">
+      <!-- Passenger Form -->
+      <form
+        [formGroup]="bookingForm"
+        (ngSubmit)="onSubmit()"
+        *ngIf="!bookingComplete"
+        class="booking-form"
+      >
+        <div class="form-header">
+          <h2 class="form-title">Passenger Details</h2>
+          <p class="form-subtitle">Enter the details for each traveler.</p>
+        </div>
+
+        <div formArrayName="passengers" class="passenger-list">
+          <div
+            *ngFor="let passenger of passengersArray.controls; let i = index"
+            class="passenger-card"
+            [formGroupName]="i"
+          >
+            <div class="passenger-header">
+              <div class="passenger-number">{{ i + 1 }}</div>
+              <div class="passenger-label">Passenger {{ i + 1 }}</div>
+            </div>
+
+            <div class="passenger-fields">
+              <div class="field-row">
+                <mat-form-field appearance="outline" class="sk-field">
+                  <mat-label>Full Name</mat-label>
+                  <input matInput formControlName="fullName" placeholder="As shown on ID" />
+                  <mat-error *ngIf="passenger.get('fullName')?.hasError('required')"
+                    >Full name is required</mat-error
+                  >
+                  <mat-error *ngIf="passenger.get('fullName')?.hasError('minlength')"
+                    >At least 3 characters</mat-error
+                  >
+                  <mat-error *ngIf="passenger.get('fullName')?.hasError('pattern')"
+                    >Name can only contain letters and spaces</mat-error
+                  >
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="sk-field">
+                  <mat-label>Email</mat-label>
+                  <input
+                    matInput
+                    formControlName="email"
+                    placeholder="name@example.com"
+                    type="email"
+                  />
+                  <mat-error *ngIf="passenger.get('email')?.hasError('required')"
+                    >Email is required</mat-error
+                  >
+                  <mat-error *ngIf="passenger.get('email')?.hasError('email')"
+                    >Enter a valid email</mat-error
+                  >
+                  <mat-error *ngIf="passenger.get('email')?.hasError('duplicateEmail')"
+                    >Email already used by another passenger</mat-error
+                  >
+                </mat-form-field>
+              </div>
+
+              <mat-form-field appearance="outline" class="sk-field">
+                <mat-label>{{ documentLabel }}</mat-label>
+                <input
+                  matInput
+                  formControlName="documentNumber"
+                  placeholder="Enter document number"
+                />
+                <mat-error *ngIf="passenger.get('documentNumber')?.hasError('required')"
+                  >Document number is required</mat-error
+                >
+                <mat-error *ngIf="passenger.get('documentNumber')?.hasError('invalidPassport')"
+                  >Enter a valid passport number (6-20 alphanumeric characters)</mat-error
+                >
+                <mat-error *ngIf="passenger.get('documentNumber')?.hasError('invalidDni')"
+                  >DNI must be 7 or 8 digits</mat-error
+                >
+                <mat-error *ngIf="passenger.get('documentNumber')?.hasError('duplicateDocument')"
+                  >Document number already used</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div
+          *ngIf="
+            formError &&
+            !(
+              passengersArray.controls[0]?.get('email')?.hasError('duplicateEmail') ||
+              passengersArray.controls[0]?.get('documentNumber')?.hasError('duplicateDocument') ||
+              passengersArray.controls[1]?.get('email')?.hasError('duplicateEmail') ||
+              passengersArray.controls[1]?.get('documentNumber')?.hasError('duplicateDocument') ||
+              passengersArray.controls[2]?.get('email')?.hasError('duplicateEmail') ||
+              passengersArray.controls[2]?.get('documentNumber')?.hasError('duplicateDocument') ||
+              passengersArray.controls[3]?.get('email')?.hasError('duplicateEmail') ||
+              passengersArray.controls[3]?.get('documentNumber')?.hasError('duplicateDocument') ||
+              passengersArray.controls[4]?.get('email')?.hasError('duplicateEmail') ||
+              passengersArray.controls[4]?.get('documentNumber')?.hasError('duplicateDocument') ||
+              passengersArray.controls[5]?.get('email')?.hasError('duplicateEmail') ||
+              passengersArray.controls[5]?.get('documentNumber')?.hasError('duplicateDocument') ||
+              passengersArray.controls[6]?.get('email')?.hasError('duplicateEmail') ||
+              passengersArray.controls[6]?.get('documentNumber')?.hasError('duplicateDocument') ||
+              passengersArray.controls[7]?.get('email')?.hasError('duplicateEmail') ||
+              passengersArray.controls[7]?.get('documentNumber')?.hasError('duplicateDocument') ||
+              passengersArray.controls[8]?.get('email')?.hasError('duplicateEmail') ||
+              passengersArray.controls[8]?.get('documentNumber')?.hasError('duplicateDocument')
+            )
+          "
+          class="form-error-banner"
+        >
+          <span class="icon">⚠️</span>
+          <span>{{ formError }}</span>
+        </div>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="confirm-btn"
+          [disabled]="loading"
+        >
+          <span *ngIf="!loading"
+            >Confirm Booking — USD {{ flight?.totalPrice | number: '1.2-2' }}</span
+          >
+          <mat-spinner *ngIf="loading" diameter="22"></mat-spinner>
+        </button>
+
+        <div *ngIf="error" class="form-error-banner">
+          <span class="icon">⚠️</span>
+          <span>{{ error }}</span>
+        </div>
+      </form>
+
+      <!-- Confirmation Screen -->
+      <div class="confirmation-wrap" *ngIf="bookingComplete && booking">
+        <div class="confirmation-card">
+          <div class="confirmation-icon-wrap">
+            <span class="icon">✅</span>
+          </div>
+          <h2 class="confirmation-title">Booking Confirmed</h2>
+          <p class="confirmation-subtitle">Your reservation is all set. Safe travels!</p>
+
+          <div class="reference-box">
+            <div class="reference-label">Booking Reference</div>
+            <div class="reference-code">{{ booking.bookingReference }}</div>
+          </div>
+
+          <div class="confirmation-details">
+            <div class="conf-detail">
+              <span class="conf-label">Flight</span>
+              <span class="conf-value">{{ booking.flightSummary.flightNumber }}</span>
+            </div>
+            <div class="conf-detail">
+              <span class="conf-label">Total Paid</span>
+              <span class="conf-value accent">USD {{ booking.totalPrice | number: '1.2-2' }}</span>
+            </div>
+          </div>
+
+          <button mat-raised-button color="primary" (click)="goHome()" class="home-btn">
+            Book Another Flight
+          </button>
+        </div>
+      </div>
+
+      <!-- Fallback error state -->
+      <div class="confirmation-wrap" *ngIf="bookingComplete && !booking">
+        <div class="confirmation-card error">
+          <div class="confirmation-icon-wrap warning">
+            <span class="icon">⚠️</span>
+          </div>
+          <h2 class="confirmation-title">Something went wrong</h2>
+          <p class="confirmation-subtitle">We couldn't retrieve your booking details.</p>
+          <button mat-raised-button color="primary" (click)="goHome()" class="home-btn">
+            Back to Search
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
